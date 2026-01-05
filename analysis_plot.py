@@ -1,4 +1,10 @@
 import pandas as pd
+import matplotlib.pyplot as plt
+import matplotlib
+
+# 解決中文顯示問題
+matplotlib.rcParams["font.sans-serif"] = ["Taipei Sans TC Beta", "Arial Unicode MS"]
+matplotlib.rcParams["axes.unicode_minus"] = False
 
 # B 模組：計算波動與指標
 def calc_metrics(df_stock):
