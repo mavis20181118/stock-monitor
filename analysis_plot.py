@@ -11,6 +11,13 @@ matplotlib.rcParams["font.sans-serif"] = [
 ]
 matplotlib.rcParams["axes.unicode_minus"] = False
 
+import matplotlib.font_manager as fm
+import streamlit as st
+
+fonts = sorted(set(f.name for f in fm.fontManager.ttflist))
+st.write("📋 可用字型（前 50 筆示意）:")
+st.write(fonts[:50])
+
 
 # B 模組：計算波動與指標
 def calc_metrics(df_stock):
@@ -38,5 +45,6 @@ def calc_metrics(df_stock):
         f"近 7 天漲跌幅：{change_7d:.2f}%　"
         f"最大單日波動：{max_vol:.2f}%"
     )
+
 
     return summary, df_7
