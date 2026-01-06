@@ -9,8 +9,8 @@ df = load_and_clean_data()
 
 # 使用者輸入股票代碼（改為可自行輸入）
 stock_id = st.text_input(
-    "請輸入股票代碼（例如 2330 或 0050）",
-    value="2330"
+    "請輸入股票代碼",
+    value="0050"
 )
 
 # 自動補成 4 位數，避免 50 → 0050
@@ -43,4 +43,4 @@ st.write("👉", summary)
 
 # 繪製圖表（Plotly）
 fig = plot_stock_chart(df_7, stock_id)
-st.plotly_chart(fig, use_container_width=True)
+st.plotly_chart(fig, use_container_width=True, key="stock_chart")
