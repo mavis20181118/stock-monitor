@@ -34,15 +34,22 @@ if stock_id:
 
 
         # ===== 波動提醒邏輯 =====
-        threshold = 5  # 設定跌幅門檻（%）
+        threshold = 5  # 設定漲跌門檻（%）
 
-        # 計算近 7 天「最大單日跌幅」
-        drop_pct = df_7["close"].pct_change().min() * 100
+        # 計算近 7 天單日漲跌幅
+        daily_pct = df_7["close"].pct_change() * 100
 
-        if drop_pct <= -threshold:
-            st.error(f"近 7 天最大跌幅已達 {drop_pct:.2f}%（超過 {threshold}%）")
+        max_up = daily_pct.max()      # 最大單日上漲 %
+        max_down = daily_pct.min()    # 最大單日下跌 %
+
+        if max_up >= threshold:
+            st.error(f"🚀 提醒：近 7 天最大單日上漲達 {max_up:.2f}%（超過 {threshold}%）")
+
+        elif max_down <= -threshold:
+            st.error(f"⚠️ 提醒：近 7 天最大單日下跌達 {max_down:.2f}%（超過 {threshold}%）")
+
         else:
-            st.info("目前波動仍在正常範圍內")
+            st.info("📌 近 7 天漲跌幅尚未超過提醒門檻")
 
 
         # ===== 繪製圖表（B 成員函式） =====
