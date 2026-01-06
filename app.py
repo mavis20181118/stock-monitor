@@ -42,14 +42,14 @@ if stock_id:
 
         total_change = (end - start) / start * 100   # 7 天累積漲跌幅
 
-        if max_up >= threshold:
-            st.error(f" 提醒：近 7 天累積上漲達 {max_up:.2f}%（超過 {threshold}%）")
+        if total_change >= threshold:
+            st.success(f" 提醒：近 7 天累積上漲 {total_change:.2f}%（超過 {threshold}%）")
 
-        elif max_down <= -threshold:
-            st.success(f" 提醒：近 7 天累積下跌達 {max_down:.2f}%（超過 {threshold}%）")
+        elif total_change <= -threshold:
+            st.error(f" 提醒：近 7 天累積下跌 {total_change:.2f}%（超過 {threshold}%）")
 
         else:
-            st.caption("近 7 天漲跌幅尚未超過提醒門檻")
+            st.caption(" 近 7 天累積漲跌幅尚未超過提醒門檻")
 
 
         # ===== 繪製圖表（B 成員函式） =====
