@@ -21,26 +21,17 @@ stock_id = stock_id.strip().zfill(4)
 if stock_id:
     df_stock = df[df["stock_id"] == stock_id]
 
+    # 查不到股票
     if df_stock.empty:
         st.warning("查無此股票代碼，請重新輸入。")
+
     else:
-        # 計算指標
+        # 計算指標 + 取近 7 天資料
         summary, df_7 = calc_metrics(df_stock)
-        st.write("👉", summary)
 
-        # 畫圖（Plotly）
+        # 顯示 7 天摘要
+        st.write(stock_id, summary)
+
+        # 繪製走勢圖
         fig = plot_stock_chart(df_7, stock_id)
-        st.plotly_chart(fig, use_container_width=True)
-
-# 篩選股票資料
-df_stock = df[df["stock_id"] == stock_id]
-
-# 指標計算
-summary, df_7 = calc_metrics(df_stock)
-
-# 顯示文字摘要
-st.write("👉", summary)
-
-# 繪製圖表（Plotly）
-fig = plot_stock_chart(df_7, stock_id)
-st.plotly_chart(fig, use_container_width=True, key="stock_chart")
+        st.plotly_chart(fig, use_container_width=True, key=f"chart_{stock_id}")
