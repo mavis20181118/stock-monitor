@@ -2,7 +2,7 @@ import streamlit as st
 from data_clean import load_and_clean_data
 from analysis_plot import calc_metrics, plot_stock_chart
 
-st.title("📈 股價追蹤與波動提醒工具")
+st.header("📈 股價追蹤與波動提醒工具")
 
 # 讀資料
 df = load_and_clean_data()
@@ -30,7 +30,7 @@ if stock_id:
         summary, df_7 = calc_metrics(df_stock)
 
         # 顯示 7 天摘要
-        st.write(stock_id, summary)
+        st.write(summary)
 
         # 繪製走勢圖
         fig = plot_stock_chart(df_7, stock_id)
