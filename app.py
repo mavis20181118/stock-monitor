@@ -37,19 +37,19 @@ if stock_id:
         threshold = 5  # 設定漲跌門檻（%）
 
         # 計算近 7 天單日漲跌幅
-        daily_pct = df_7["close"].pct_change() * 100
+        start = df_7.iloc[0]["close"]
+        end = df_7.iloc[-1]["close"]
 
-        max_up = daily_pct.max()      # 最大單日上漲 %
-        max_down = daily_pct.min()    # 最大單日下跌 %
+        total_change = (end - start) / start * 100   # 7 天累積漲跌幅
 
         if max_up >= threshold:
-            st.error(f"🚀 提醒：近 7 天最大單日上漲達 {max_up:.2f}%（超過 {threshold}%）")
+            st.error(f" 提醒：近 7 天累積上漲達 {max_up:.2f}%（超過 {threshold}%）")
 
         elif max_down <= -threshold:
-            st.error(f"⚠️ 提醒：近 7 天最大單日下跌達 {max_down:.2f}%（超過 {threshold}%）")
+            st.success(f" 提醒：近 7 天累積下跌達 {max_down:.2f}%（超過 {threshold}%）")
 
         else:
-            st.info("📌 近 7 天漲跌幅尚未超過提醒門檻")
+            st.caption("近 7 天漲跌幅尚未超過提醒門檻")
 
 
         # ===== 繪製圖表（B 成員函式） =====
