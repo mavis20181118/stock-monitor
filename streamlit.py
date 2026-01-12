@@ -1,6 +1,6 @@
 import streamlit as st
 from data_clean import fetch_stock_data
-from plotly import plot_month_price
+from plotly_chart import plot_month_price
 
 st.set_page_config(page_title="股價追蹤工具", layout="wide")
 st.title("📈 股價追蹤與波動提醒工具")
