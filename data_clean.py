@@ -3,10 +3,10 @@ import pandas as pd
 
 
 # 原版
-taiwan_2330 = yf.Ticker("2330.TW")
-stock_history_2y = taiwan_2330.history(period="2y")
-stock_history_1d_1m = taiwan_2330.history(period="1d", interval="1m")
-stock_history_1d = taiwan_2330.history(period="1d")
+#taiwan_2330 = yf.Ticker("2330.TW")
+#stock_history_2y = taiwan_2330.history(period="2y")
+#stock_history_1d_1m = taiwan_2330.history(period="1d", interval="1m")
+#stock_history_1d = taiwan_2330.history(period="1d")
 
 # 更新版
 def fetch_stock_data(stock_id: str):
