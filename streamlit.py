@@ -1,4 +1,5 @@
 import streamlit as st
+# .py檔語法
 from data_clean import fetch_stock_data
 from plotly_chart import plot_month_price
 
@@ -13,13 +14,14 @@ stock_id = st.text_input(
 
 if stock_id:
     try:
-        # A：抓取近一個月資料
-        data_1m = fetch_stock_data(stock_id)
+        # A：抓資料（三個 summary）
+        summary_1y, summary_1m, summary_1d = fetch_stock_data(stock_id)
 
-        # 若資料為空，避免 B 端出錯
+        # 取出「近一個月畫圖用資料」
+        data_1m = summary_1m["line_chart"]
+
         if data_1m.empty:
             st.warning("查無資料，請確認股票代碼是否正確。")
-
         else:
             # B：產生圖表
             fig = plot_month_price(data_1m, stock_id)
