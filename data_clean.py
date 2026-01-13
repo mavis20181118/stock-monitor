@@ -1,12 +1,21 @@
 import yfinance as yf
 import pandas as pd
 
+
+# 原版
+taiwan_2330 = yf.Ticker("2330.TW")
+stock_history_2y = taiwan_2330.history(period="2y")
+stock_history_1d_1m = taiwan_2330.history(period="1d", interval="1m")
+stock_history_1d = taiwan_2330.history(period="1d")
+
+# 更新版
 def fetch_stock_data(stock_id: str):
     ticker = yf.Ticker(f"{stock_id}.TW")
     stock_history_2y = ticker.history(period="2y") # 近兩年的股價資料
     stock_history_1d_1m = ticker.history(period="1d", interval="1m") #抓 今天每分鐘的股價
     stock_history_1d = ticker.history(period="1d") # 抓 今天收盤股價
 
+    # 以下內縮
     one_year_ago = stock_history_2y.index[-1] - pd.DateOffset(years=1) # 計算一年前的日期
     one_month_ago = stock_history_2y.index[-1] - pd.DateOffset(months=1) # 計算一個月前的日期
     stock_history_1y = stock_history_2y.loc[stock_history_2y.index > one_year_ago] # 取出近一年的股價
@@ -36,7 +45,7 @@ def fetch_stock_data(stock_id: str):
     open_price_1d = stock_history_1d["Open"].iloc[-1] # 當日開盤價
     data_line_chart_1d = stock_history_1d_1m[["Close"]].copy()
 
-    #測試用
+    # 測試用
     #print(one_year_ago)
     #print(one_month_ago)
     #print(stock_history_1y)
