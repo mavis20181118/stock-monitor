@@ -14,20 +14,24 @@ stock_id = st.text_input(
 
 if stock_id:
     try:
-        # A：抓資料（三個 summary）
+        # A：抓資料（一定會回傳 3 個值）
         summary_1y, summary_1m, summary_1d = fetch_stock_data(stock_id)
 
-        # 取出「近一個月畫圖用資料」
-        data_1m = summary_1m["line_chart"]
-
-        if data_1m.empty:
-            st.warning("查無資料，請確認股票代碼是否正確。")
+        # 防止雲端抓資料失敗（summary_1m 會是 {}）
+        if not summary_1m:
+            st.warning("資料讀取失敗，請稍後再試。")
         else:
-            # B：產生圖表
-            fig = plot_month_price(data_1m, stock_id)
+            # 取出近一個月畫圖用資料
+            data_1m = summary_1m["line_chart"]
 
-            # C：顯示圖表
-            st.plotly_chart(fig, use_container_width=True)
+            if data_1m.empty:
+                st.warning("查無資料，請確認股票代碼是否正確。")
+            else:
+                # B：產生圖表
+                fig = plot_month_price(data_1m, stock_id)
+
+                # C：顯示圖表
+                st.plotly_chart(fig, use_container_width=True)
 
     except Exception as e:
         st.error("資料讀取或圖表產生失敗，請稍後再試。")

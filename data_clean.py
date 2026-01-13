@@ -16,10 +16,10 @@ def fetch_stock_data(stock_id: str):
         stock_history_1d = ticker.history(period="1d")
         stock_history_1d_1m = ticker.history(period="1d", interval="1m")
     except Exception:
-        return {}
+        return {}, {}, {}
 
     if stock_history_2y.empty:
-        return {}
+        return {}, {}, {}
 
     #stock_history_2y = ticker.history(period="2y")
 
