@@ -33,27 +33,27 @@ if stock_id:
 
         else:
             # ===== 波動提醒區 =====
-            st.subheader("波動提醒")
+            st.header("波動提醒")
 
             col1, col2, col3 = st.columns(3)
 
             with col1:
                 if warning_1y != "無":
-                    st.warning(f"年：{warning_1y}")
+                    st.warning(f{warning_1y})
                 else:
-                    st.success("年：無明顯異常波動")
+                    st.success("一年：無明顯異常波動")
 
             with col2:
                 if warning_1m != "無":
-                    st.warning(f"月：{warning_1m}")
+                    st.warning(f{warning_1m})
                 else:
-                    st.success("月：無明顯異常波動")
+                    st.success("單月：無明顯異常波動")
 
             with col3:
                 if warning_1d != "無":
-                    st.warning(f"日：{warning_1d}")
+                    st.warning(f{warning_1d})
                 else:
-                    st.success("日：無明顯異常波動")
+                    st.success("當日：無明顯異常波動")
 
             # ===== 圖表區 =====
 
