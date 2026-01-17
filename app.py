@@ -41,19 +41,19 @@ if stock_id:
                 if warning_1y != "無":
                     st.warning(warning_1y)
                 else:
-                    st.success("一年無明顯異常波動")
+                    st.caption("一年無明顯異常波動")
 
             with col2:
                 if warning_1m != "無":
-                    st.warning({warning_1m})
+                    st.warning(warning_1m)
                 else:
-                    st.success("單月無明顯異常波動")
+                    st.caption("單月無明顯異常波動")
 
             with col3:
                 if warning_1d != "無":
                     st.warning(warning_1d)
                 else:
-                    st.success("當日無明顯異常波動")
+                    st.caption("當日無明顯異常波動")
 
             # ===== 圖表區 =====
 
