@@ -1,27 +1,36 @@
-#這段無法做測試
-
 import streamlit as st
-# .py檔語法
 from data_clean import fetch_stock_data
 from plotly_chart import plot_month_price
 
-st.set_page_config(page_title="股價追蹤工具", layout="wide")
-st.title("📈 股價追蹤與波動提醒工具")
+# ===== Streamlit 基本設定 =====
+st.set_page_config(
+    page_title="股價追蹤與波動提醒工具",
+    layout="wide"
+)
 
-# 使用者輸入股票代碼
+st.title("📈 股價追蹤與波動提醒工具")
+st.caption("⚠️ 本工具僅供學習與趨勢觀察，非投資建議")
+
+# ===== 使用者輸入 =====
 stock_id = st.text_input(
-    "請輸入股票代碼",
+    "請輸入股票代碼（例如 2330、0050）",
     value="2330"
 ).strip()
 
+# ===== 主流程 =====
 if stock_id:
     try:
-        # A：抓取近一個月資料
-        data_1m = fetch_stock_data(stock_id)
+        # A：抓資料（含波動提醒）
+        result = fetch_stock_data(stock_id)
 
-        # 若資料為空，避免 B 端出錯
+        data_1m = result["data_1m"]
+        warning_1y = result["warning_1y"]
+        warning_1m = result["warning_1m"]
+        warning_1d = result["warning_1d"]
+
+        # ===== 防呆：沒資料 =====
         if data_1m.empty:
-            st.warning("查無資料，請確認股票代碼是否正確。")
+            st.warning("查無資料，請確認股票代碼是否正確，或目前非交易時段。")
 
         else:
             # ===== 波動提醒區 =====
