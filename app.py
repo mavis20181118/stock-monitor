@@ -29,7 +29,7 @@ if stock_id:
 
         # ===== 防呆：沒資料 =====
         if data_1m.empty:
-            st.warning("查無資料，請確認股票代碼是否正確。")
+            st.warning("查無資料，請確認股票代碼是否正確，或目前非交易時段。")
 
         else:
             # ===== 波動提醒區 =====
@@ -39,21 +39,21 @@ if stock_id:
 
             with col1:
                 if warning_1y != "無":
-                    st.warning(f"{warning_1y}")
+                    st.warning(f"年：{warning_1y}")
                 else:
-                    st.success("無明顯異常波動")
+                    st.success("年：無明顯異常波動")
 
             with col2:
                 if warning_1m != "無":
-                    st.warning(f"{warning_1m}")
+                    st.warning(f"月：{warning_1m}")
                 else:
-                    st.success("無明顯異常波動")
+                    st.success("月：無明顯異常波動")
 
             with col3:
                 if warning_1d != "無":
-                    st.warning(f"{warning_1d}")
+                    st.warning(f"日：{warning_1d}")
                 else:
-                    st.success("無明顯異常波動")
+                    st.success("日：無明顯異常波動")
 
             # ===== 圖表區 =====
 
