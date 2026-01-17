@@ -45,6 +45,50 @@ def fetch_stock_data(stock_id: str):
     open_price_1d = stock_history_1d["Open"].iloc[-1] # 當日開盤價
     data_line_chart_1d = stock_history_1d_1m[["Close"]].copy()
 
+    # warning
+    start_1y = stock_history_1y["Close"].iloc[0]
+    end_1y = stock_history_1y["Close"].iloc[-1]
+    fluctuation_1y = (end_1y - start_1y) / start_1y
+    if fluctuation_1y > 0.2:
+        warning_1y = "一年上漲超過20%"
+    elif fluctuation_1y < -0.2:
+        warning_1y = "一年下跌超過20%"
+    else:
+        warning_1y = "無"
+
+    start_1m = stock_history_1m["Close"].iloc[0]
+    end_1m = stock_history_1m["Close"].iloc[-1]
+    fluctuation_1m = (end_1m - start_1m) / start_1m
+    if fluctuation_1m > 0.1:
+        warning_1m = "單月上漲超過10%"
+    elif fluctuation_1m < -0.1:
+        warning_1m = "單月下跌超過10%"
+    else:
+        warning_1m = "無"
+
+    #start_1d = stock_history_2d["Close"].iloc[0]
+    #end_1d = stock_history_2d["Close"].iloc[-1]
+    #fluctuation_1d = (end_1d - start_1d) / start_1d
+    #if fluctuation_1d > 0.05:
+        #warning_1d = "本日上漲超過5%"
+    #elif fluctuation_1d < -0.05:
+        #warning_1d = "本日下跌超過5%"
+    #else:
+        #warning_1d = "無"
+
+    # 1d（用 開盤 vs 收盤 才合理）
+    open_1d = stock_history_1d["Open"].iloc[-1]
+    close_1d = stock_history_1d["Close"].iloc[-1]
+    fluctuation_1d = (close_1d - open_1d) / open_1d
+
+    if fluctuation_1d > 0.05:
+        warning_1d = "本日上漲超過5%"
+    elif fluctuation_1d < -0.05:
+        warning_1d = "本日下跌超過5%"
+    else:
+        warning_1d = "無"
+
+
     # 測試用
     #print(one_year_ago)
     #print(one_month_ago)
@@ -58,7 +102,7 @@ def fetch_stock_data(stock_id: str):
     #print(transaction_volume_1m,highest_price_1m,lowest_price_1m,data_line_chart_1m)
     #print(transaction_volume_1d,highest_price_1d,lowest_price_1d,data_line_chart_1d,open_price_1d)
 
-    return stock_history_1m
+    return {stock_history_1m,warning_1y,warning_1m,warning_1d}
 
 # 測試選2330
 #test = fetch_stock_data("2330")

@@ -24,10 +24,33 @@ if stock_id:
             st.warning("查無資料，請確認股票代碼是否正確。")
 
         else:
-            # B：產生圖表
-            fig = plot_month_price(data_1m, stock_id)
+            # ===== 波動提醒區 =====
+            st.subheader("波動提醒")
 
-            # C：顯示圖表
+            col1, col2, col3 = st.columns(3)
+
+            with col1:
+                if warning_1y != "無":
+                    st.warning(f"一年：{warning_1y}")
+                else:
+                    st.success("一年：無明顯異常波動")
+
+            with col2:
+                if warning_1m != "無":
+                    st.warning(f"單月：{warning_1m}")
+                else:
+                    st.success("單月：無明顯異常波動")
+
+            with col3:
+                if warning_1d != "無":
+                    st.warning(f"本日：{warning_1d}")
+                else:
+                    st.success("本日：無明顯異常波動")
+
+            # ===== 圖表區 =====
+            st.subheader("近一個月股價走勢")
+
+            fig = plot_month_price(data_1m, stock_id)
             st.plotly_chart(fig, use_container_width=True)
 
     except Exception as e:
