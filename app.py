@@ -51,6 +51,12 @@ def check_volatility(df, threshold, time_label, col_name="Close"):
 
 # ===== 3. 使用者輸入區 =====
 stock_id = st.text_input("請輸入股票代碼",value="0050").strip()
+search_btn = st.button("查詢") 
+
+# 邏輯：不管是「剛載入有預設值」或是「按下了按鈕」，都執行
+if stock_id: 
+    # 這裡放你的抓資料程式碼
+    st.write(f"{stock_id}")
 
 # ===== 4. 主程式邏輯 =====
 if stock_id:
