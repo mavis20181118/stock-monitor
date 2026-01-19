@@ -50,8 +50,7 @@ def check_volatility(df, threshold, time_label, col_name="Close"):
 
 
 # ===== 3. 使用者輸入區 =====
-stock_id = st.text_input("請輸入股票代碼",value="0050").strip()
-search_btn = st.button("查詢") 
+stock_id = st.sidebar.text_input("請輸入股票代碼", value="0050").strip()
 
 # ===== 4. 主程式邏輯 =====
 if stock_id:
@@ -68,8 +67,6 @@ if stock_id:
             data_1d_1m = result["data_1d_1m"]  # 當日 (分K)
             data_1m = result["data_1m"]        # 近一月 (日K)
             data_1y = result["data_1y"]        # 近一年 (日K)
-            
-            st.markdown("---")
 
             # --- D. 波動提醒區塊 (三欄版面) ---
             st.subheader("**波動提醒**")
@@ -86,8 +83,6 @@ if stock_id:
             # 3. 近一年 (門檻 20%)
             with col3:
                 check_volatility(data_1y, threshold=20, time_label="近一年")
-
-            st.markdown("---")
 
             # --- E. 股價走勢圖 (分頁籤顯示) ---
             st.subheader("**股價走勢圖**")
