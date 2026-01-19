@@ -74,7 +74,7 @@ if stock_id:
 
             # 1. 當日 (門檻 5%)
             with col1:
-                check_volatility(data_1d_1m, threshold=3, time_label="當日")
+                check_volatility(data_1d_1m, threshold=5, time_label="當日")
             
             # 2. 近一月 (門檻 10%)
             with col2:
