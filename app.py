@@ -72,7 +72,7 @@ if stock_id:
             st.markdown("---")
 
             # --- D. 波動提醒區塊 (三欄版面) ---
-            st.subheader("**波動提醒警示**")
+            st.subheader("**波動提醒**")
             col1, col2, col3 = st.columns(3)
 
             # 1. 當日 (門檻 3%)
