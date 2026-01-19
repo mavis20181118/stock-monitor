@@ -72,7 +72,7 @@ if stock_id:
             st.markdown("---")
 
             # --- D. 波動提醒區塊 (三欄版面) ---
-            st.markdown("**波動提醒警示**")
+            st.subheader("**波動提醒警示**")
             col1, col2, col3 = st.columns(3)
 
             # 1. 當日 (門檻 3%)
@@ -90,7 +90,7 @@ if stock_id:
             st.markdown("---")
 
             # --- E. 股價走勢圖 (分頁籤顯示) ---
-            st.markdown("**股價走勢圖**")
+            st.subheader("**股價走勢圖**")
             
             # 建立三個分頁
             tab1, tab2, tab3 = st.tabs(["當日", "近一月", "近一年"])
