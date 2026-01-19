@@ -50,7 +50,8 @@ def check_volatility(df, threshold, time_label, col_name="Close"):
 
 
 # ===== 3. 使用者輸入區 =====
-stock_id = st.text_input("請輸入股票代碼", value="0050").strip()
+stock_id = st.text_input("請輸入股票代碼", value="0050")
+search_btn = st.button("查詢")
 
 # ===== 4. 主程式邏輯 =====
 if stock_id:
@@ -60,11 +61,10 @@ if stock_id:
             result = fetch_stock_data(stock_id)
 
         # --- B. 檢查回傳結果 ---
-        # 如果 result 是 None 或資料異常，顯示錯誤
         if not result or result["data_1m"].empty:
             st.warning("查無資料，請確認股票代碼是否正確。")
         else:
-            # --- C. 解包資料 (使用 Key 取值，避免 ValueError) ---
+            # --- C. 抓資料
             data_1d_1m = result["data_1d_1m"]  # 當日 (分K)
             data_1m = result["data_1m"]        # 近一月 (日K)
             data_1y = result["data_1y"]        # 近一年 (日K)
@@ -75,7 +75,7 @@ if stock_id:
             st.subheader("**波動提醒**")
             col1, col2, col3 = st.columns(3)
 
-            # 1. 當日 (門檻 3%)
+            # 1. 當日 (門檻 5%)
             with col1:
                 check_volatility(data_1d_1m, threshold=3, time_label="當日")
             
