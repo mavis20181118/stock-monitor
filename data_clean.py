@@ -1,7 +1,7 @@
 import yfinance as yf
 import pandas as pd
 
-def fetch_stock_data_test(stock_id: str):
+def fetch_stock_data(stock_id: str):
     try:
         ticker = yf.Ticker(f"{stock_id}.TW")
         # 抓長資料 (近兩年，用來切分年/月)
