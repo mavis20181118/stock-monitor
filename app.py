@@ -17,12 +17,12 @@ def check_volatility(df, threshold, time_label, col_name="Close"):
     """
     計算漲跌幅並顯示警示
     df: 資料 DataFrame
-    threshold: 觸發提醒的百分比門檻 (例如 3, 10, 20)
+    threshold: 觸發提醒的百分比門檻 (例如 5, 10, 20)
     time_label: 顯示名稱 (例如 '當日', '近一月')
     col_name: 用來計算的欄位 (當日用 Open/Close, 其他用 Close)
     """
     if df.empty:
-        st.caption(f"{time_label}：無資料 (可能休市或資料不足)")
+        st.caption(f"{time_label}：無資料")
         return
 
     # 取得第一筆與最後一筆資料
@@ -62,7 +62,7 @@ if stock_id:
         # --- B. 檢查回傳結果 ---
         # 如果 result 是 None 或資料異常，顯示錯誤
         if not result or result["data_1m"].empty:
-            st.warning("查無資料，請確認股票代碼是否正確，或目前非交易時段。")
+            st.warning("查無資料，請確認股票代碼是否正確。")
         else:
             # --- C. 解包資料 (使用 Key 取值，避免 ValueError) ---
             data_1d_1m = result["data_1d_1m"]  # 當日 (分K)
@@ -72,7 +72,7 @@ if stock_id:
             st.markdown("---")
 
             # --- D. 波動提醒區塊 (三欄版面) ---
-            st.markdown("波動提醒警示")
+            st.markdown("**波動提醒警示**")
             col1, col2, col3 = st.columns(3)
 
             # 1. 當日 (門檻 3%)
@@ -90,10 +90,10 @@ if stock_id:
             st.markdown("---")
 
             # --- E. 股價走勢圖 (分頁籤顯示) ---
-            st.markdown("股價走勢圖")
+            st.markdown("**股價走勢圖**")
             
             # 建立三個分頁
-            tab1, tab2, tab3 = st.tabs(["當日", "近一個月", "近一年"])
+            tab1, tab2, tab3 = st.tabs(["當日", "近一月", "近一年"])
 
             # 分頁 1: 當日
             with tab1:
@@ -101,7 +101,7 @@ if stock_id:
                     fig_day = plot_trend_with_volume(data_1d_1m, stock_id, "當日")
                     st.plotly_chart(fig_day, use_container_width=True)
                 else:
-                    st.info("目前無當日盤中資料 (可能為開盤前或休市)")
+                    st.info("查無當日盤中資料 (可能為開盤前或休市)")
 
             # 分頁 2: 近一個月
             with tab2:
@@ -121,4 +121,4 @@ if stock_id:
 
     except Exception as e:
         # --- F. 錯誤處理 ---
-        st.error(f"❌ 發生未預期的錯誤: {e}")
+        st.error(f"發生未預期的錯誤: {e}")
