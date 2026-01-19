@@ -31,8 +31,8 @@ def fetch_stock_data_test(stock_id: str):
     }
 
 # 測試選2330
-stock_id = "2330"
-result = fetch_stock_data_test(stock_id)
-print(result["data_1d_1m"])
-print(result["data_1m"])
-print(result["data_1y"])
+#stock_id = "2330"
+#result = fetch_stock_data_test(stock_id)
+#print(result["data_1d_1m"])
+#print(result["data_1m"])
+#print(result["data_1y"])

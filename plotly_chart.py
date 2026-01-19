@@ -70,10 +70,10 @@ def plot_trend_with_volume(data, stock_id, title_suffix):
     return fig
 
 # 測試
-stock_id = "2330"
-result = fetch_stock_data_test(stock_id)
+#stock_id = "2330"
+#result = fetch_stock_data_test(stock_id)
 
-if result:
+#if result:
     data_day = result["data_1d_1m"]
     data_month = result["data_1m"]
     data_year = result["data_1y"]
