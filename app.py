@@ -10,7 +10,7 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-st.title("📈 股價追蹤與波動提醒工具")
+st.header("📈 股價追蹤與波動提醒工具")
 
 # ===== 2. 定義波動提醒函式 (紅漲綠跌邏輯) =====
 def check_volatility(df, threshold, time_label, col_name="Close"):
@@ -42,15 +42,15 @@ def check_volatility(df, threshold, time_label, col_name="Close"):
 
     # 依照門檻顯示提醒 (Streamlit: error=紅色/漲, success=綠色/跌)
     if change_pct >= threshold:
-        st.error(f"🔥 {time_label}累積上漲 {change_pct:.2f}%（超過 {threshold}%）")
+        st.error(f"{time_label}累積上漲 {change_pct:.2f}%（超過 {threshold}%）")
     elif change_pct <= -threshold:
-        st.success(f"📉 {time_label}累積下跌 {change_pct:.2f}%（超過 {threshold}%）")
+        st.success(f"{time_label}累積下跌 {change_pct:.2f}%（超過 {threshold}%）")
     else:
-        st.caption(f"✅ {time_label}波動平穩 (未超過 {threshold}%)")
+        st.caption(f"{time_label}波動平穩 (未超過 {threshold}%)")
 
 
 # ===== 3. 使用者輸入區 =====
-stock_id = st.text_input("請輸入股票代碼 (例如: 2330, 0050)", value="2330").strip()
+stock_id = st.text_input("請輸入股票代碼", value="0050").strip()
 
 # ===== 4. 主程式邏輯 =====
 if stock_id:
@@ -62,7 +62,7 @@ if stock_id:
         # --- B. 檢查回傳結果 ---
         # 如果 result 是 None 或資料異常，顯示錯誤
         if not result or result["data_1m"].empty:
-            st.warning("⚠️ 查無資料，請確認股票代碼是否正確，或目前非交易時段。")
+            st.warning("查無資料，請確認股票代碼是否正確，或目前非交易時段。")
         else:
             # --- C. 解包資料 (使用 Key 取值，避免 ValueError) ---
             data_1d_1m = result["data_1d_1m"]  # 當日 (分K)
@@ -72,7 +72,7 @@ if stock_id:
             st.markdown("---")
 
             # --- D. 波動提醒區塊 (三欄版面) ---
-            st.subheader("🔔 波動提醒警示")
+            st.markdown("波動提醒警示")
             col1, col2, col3 = st.columns(3)
 
             # 1. 當日 (門檻 3%)
@@ -90,10 +90,10 @@ if stock_id:
             st.markdown("---")
 
             # --- E. 股價走勢圖 (分頁籤顯示) ---
-            st.subheader(f"📊 {stock_id} 股價走勢圖")
+            st.markdown("股價走勢圖")
             
             # 建立三個分頁
-            tab1, tab2, tab3 = st.tabs(["🕒 當日走勢", "📅 近一個月", "📆 近一年"])
+            tab1, tab2, tab3 = st.tabs(["當日", "近一個月", "近一年"])
 
             # 分頁 1: 當日
             with tab1:
