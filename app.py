@@ -50,7 +50,7 @@ def check_volatility(df, threshold, time_label, col_name="Close"):
 
 
 # ===== 3. 使用者輸入區 =====
-stock_id = st.sidebar.text_input("請輸入股票代碼", value="0050").strip()
+stock_id = st.text_input("請輸入股票代碼",value="0050").strip()
 
 # ===== 4. 主程式邏輯 =====
 if stock_id:
