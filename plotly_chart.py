@@ -1,4 +1,4 @@
-import plotly.graph_objects as pgo
+import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 
 def plot_trend_with_volume(data, stock_id, title_suffix):
@@ -15,14 +15,14 @@ def plot_trend_with_volume(data, stock_id, title_suffix):
     )
 
     # 2. 上圖：股價 (折線)
-    fig.add_trace(pgo.Scatter(
+    fig.add_trace(go.Scatter(
         x=data.index, y=data["Close"], 
         name="收盤價", mode="lines", 
         line=dict(color="#1f77b4", width=2)
     ), row=1, col=1)
 
     # 3. 下圖：成交量 (長條)
-    fig.add_trace(pgo.Bar(
+    fig.add_trace(go.Bar(
         x=data.index, y=data["Volume"], 
         name="成交量", marker_color="#ff7f0e"
     ), row=2, col=1)
